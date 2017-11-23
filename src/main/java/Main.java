@@ -1,5 +1,7 @@
+import com.sforce.soap.apex.*;
+import com.sforce.soap.metadata.ApexTestSuite;
 import com.sforce.soap.partner.*;
-import com.sforce.soap.partner.sobject.*;
+import com.sforce.soap.partner.Connector;
 import com.sforce.ws.*;
 
 import java.util.Arrays;
@@ -12,15 +14,18 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        ConnectorConfig config = new ConnectorConfig();
-        config.setManualLogin(true);
-        config.setAuthEndpoint("https://login.salesforce.com/services/Soap/u/41.0");
-        config.setUsername("4an70m@gmail.com");
-        config.setPassword("12345qwerty");
+        final String username = "4an70m2@gmail.com";
+        final String password = "J2M78BLqcYEgf6HybLGTVn4lrMC97YFjwYTQ9Lwke";
+        final String loginUrl = "https://login.salesforce.com/services/Soap/u/41.0";
 
+
+        ConnectorConfig config = new ConnectorConfig();
+        config.setManualLogin(false);
+        config.setAuthEndpoint(loginUrl);
+        config.setUsername(username);
+        config.setPassword(password);
         PartnerConnection connection = Connector.newConnection(config);
-        System.out.println("Querying Contacts");
-        final QueryResult queryResult = partnerConnection.query("SELECT Id, Name FROM Contact");
-        Arrays.stream(queryResult.getRecords()).forEach(System.out::println);
+
+        System.out.println(config.getSessionId());
     }
 }
